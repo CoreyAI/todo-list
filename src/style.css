@@ -16,6 +16,9 @@
 .header {
   grid-area: header;
   background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav {
@@ -32,3 +35,17 @@
   grid-area: footer;
   background-color: red;
 }
+
+#menu-icon {
+  color: white;
+  position: absolute;
+  left: 4vw;
+  width: 2rem;
+
+}
+
+.logo {
+  color: white;
+  font-size: 2rem;
+}
+

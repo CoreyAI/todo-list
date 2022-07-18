@@ -1,6 +1,5 @@
-import "./UI";
 import "./style.css";
-import { uiInitialize } from "./UI";
+import { ui } from "./UI";
 
 // ui.initialize();
-uiInitialize.start();
+ui.start();
