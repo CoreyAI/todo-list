@@ -1,16 +1,16 @@
 const ui = (() =>{
 
   const container = document.getElementById("container");
-  const header = document.getElementsByClassName("header")[0];
-  const nav = document.getElementsByClassName("nav")[0];
-  const content = document.getElementsByClassName("content-container")[0];
-  const footer = document.getElementsByClassName("footer")[0];
+  const header = document.getElementById("header");
+  const nav = document.getElementById("nav");
+  const content = document.getElementById("content-container");
+  const footer = document.getElementById("footer");
 
   const appendChild = (eParent, eChild) => {
-    if (eParent[0] == null) {
+    if (eParent == null) {
       eParent.appendChild(eChild);
     } else {
-      eParent[eParent.length].appendChild(eChild);
+      eParent.appendChild(eChild);
     }
   }
 
@@ -19,11 +19,6 @@ const ui = (() =>{
   }
 
   const headerMenuIcon = () => {
-    // const e = document.createElement().innerHTML = `
-    //   <svg style="width:24px;height:24px" viewBox="0 0 24 24">
-    //     <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
-    //   </svg>
-    // `
     const e = `
       <svg viewBox="0 0 24 24" id="menu-icon">
         <path fill="currentColor" d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
@@ -40,13 +35,21 @@ const ui = (() =>{
   }
 
   const start = () => {
-    // header[0].innerHTML += headerMenuIcon();
     setInnerHTML(header, headerMenuIcon());
     setInnerHTML(header, headerLogo());
-    // console.log("test");
   }
 
-  return {start};
+  const menuToggle = () => {
+    if (nav.className == "active") {
+      nav.className = "hidden";
+      content.className = "extend";
+    } else {
+      nav.className = "active";
+      content.className = "normal";
+    }
+  }
+
+  return {start, menuToggle};
 
 })();
 

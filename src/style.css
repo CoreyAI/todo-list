@@ -1,3 +1,7 @@
+:root {
+  --color-header: blue;
+}
+
 #container {
   position: fixed;
   top: 0%;
@@ -13,25 +17,34 @@
     "footer footer";
 }
 
-.header {
+#header {
   grid-area: header;
-  background-color: blue;
+  background-color: var(--color-header);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.nav {
+#nav {
   grid-area: nav;
   background-color: green;
 }
 
-.content-container {
+#nav.hidden {
+  display: none;
+}
+
+#content-container {
   grid-area: content;
   background-color: yellow;
 }
 
-.footer {
+#content-container.extend {
+  grid-column-start: nav;
+  grid-column-end: content;
+}
+
+#footer {
   grid-area: footer;
   background-color: red;
 }
@@ -39,9 +52,19 @@
 #menu-icon {
   color: white;
   position: absolute;
-  left: 4vw;
+  left: 20px;
   width: 2rem;
+  border: 1px solid var(--color-header);
+}
 
+#menu-icon:hover {
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+#menu-icon:active {
+  color: var(--color-header);
+  border: none;
 }
 
 .logo {
