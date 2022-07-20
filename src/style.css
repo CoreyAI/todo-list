@@ -81,7 +81,7 @@
 }
 
 .nav-main-choices {
-  margin: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
 .nav-icons {
@@ -89,15 +89,15 @@
 }
 
 #nav>#nav-projects {
-  margin-bottom: 0rem;
+  padding-bottom: 0rem;
 }
 
 #nav>#nav-add-projects {
-  margin-top: 0rem;
+  padding-top: 0rem;
 }
 
 .nav-projects {
-  margin-left: 2.5rem;
+  padding-left: 2.5rem;
 }
 
 #nav>#nav-add-projects>* {
@@ -106,4 +106,8 @@ font-size: 0.8rem;
 
 #nav-projects-icon {
   height: 1.2rem;
+}
+
+#nav>div:hover {
+  background-color: grey;
 }
