@@ -80,7 +80,7 @@
   gap: 1rem;
 }
 
-.nav-main-choices {
+.nav-main-choices, #nav>#nav-projects {
   padding: 0.5rem 1rem;
 }
 
@@ -96,7 +96,7 @@
   padding-top: 0rem;
 }
 
-.nav-projects {
+#nav-added-projects, #nav-add-projects {
   padding-left: 2.5rem;
 }
 

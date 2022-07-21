@@ -64,7 +64,7 @@ const ui = (() =>{
         </svg>
         <div class="nav-label">Today</div>
       </div>
-      <div class="nav-main-choices" id="nav-projects">
+      <div class="nav-projects" id="nav-projects">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="nav-icons">
           <path fill="#000000" d="M3,3H9V7H3V3M15,10H21V14H15V10M15,17H21V21H15V17M13,13H7V18H13V20H7L5,20V9H7V11H13V13Z" />
         </svg>
@@ -83,7 +83,7 @@ const ui = (() =>{
 
   const navProjectToggle = () => {
     const projectList = document.getElementsByClassName("nav-projects");
-    for (let i = 0; i < projectList.length; i++) {
+    for (let i = 1; i < projectList.length; i++) {
       if (projectList[i].getAttribute("style")) {
         projectList[i].removeAttribute("style");
       } else {
@@ -95,7 +95,7 @@ const ui = (() =>{
   const navAddProject = (name, id) => {
     const addedProjects = document.getElementById("nav-added-projects");
     const projectElement = document.createElement("div");
-    projectElement.setAttribute("class", "nav-added-projects");
+    projectElement.setAttribute("class", "nav-projects");
     projectElement.setAttribute("id", id);
     projectElement.innerHTML = `
       <div>${name}</div>
