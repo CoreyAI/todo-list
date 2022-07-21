@@ -8,7 +8,7 @@ document.querySelector("#menu-icon").addEventListener("click", e => {
 });
 
 document.querySelector("#nav-projects").addEventListener("click", e => {
-  console.log("clicked projects");
+  ui.navProjectToggle();
 });
 
 document.querySelector("#nav-add-projects").addEventListener("click", e => {
