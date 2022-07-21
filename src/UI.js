@@ -81,7 +81,18 @@ const ui = (() =>{
     return e;
   }
 
-  return {start, menuToggle};
+  const navProjectToggle = () => {
+    const projectList = document.getElementsByClassName("nav-projects");
+    for (let i = 0; i < projectList.length; i++) {
+      if (projectList[0].getAttribute("style")) {
+        projectList[i].removeAttribute("style");
+      } else {
+        projectList[i].setAttribute("style", "display:none");
+      }
+    }
+  }
+
+  return {start, menuToggle, navProjectToggle};
 
 })();
 
