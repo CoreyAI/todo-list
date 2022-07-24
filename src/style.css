@@ -100,7 +100,7 @@
   padding-left: 2.5rem;
 }
 
-.nav-projects#nav-added-projects {
+#nav>#nav-added-projects {
   display: flex;
   flex-direction: column;
   gap: initial;
@@ -115,15 +115,27 @@ font-size: 0.8rem;
   height: 1.2rem;
 }
 
+#nav-projects-icon:hover  {
+  background-color: white;
+}
+
 .nav-main-choices:hover, .nav-added-projects:hover, #nav-add-projects:hover {
   background-color: grey;
 }
 
-.nav-added-projects {
+.nav-projects>div {
   display: flex;
   flex-direction: row;
   gap: 2rem;
   justify-items: end;
   align-self: end;
   padding-right: 1rem;
+}
+
+#testing123 {
+  z-index: 0;
+}
+
+#testing123 > * {
+  z-index: 1;
 }
