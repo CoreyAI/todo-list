@@ -104,7 +104,6 @@
   display: flex;
   flex-direction: column;
   gap: initial;
-  /* padding: 0.5rem 0rem; */
 }
 
 #nav>#nav-add-projects>*, .nav-projects#nav-added-projects {
@@ -126,4 +125,5 @@ font-size: 0.8rem;
   justify-items: end;
   align-self: end;
   padding-right: 1rem;
+  padding-left: inherit;
 }
