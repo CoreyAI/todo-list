@@ -11,11 +11,27 @@ document.querySelector("#nav-projects").addEventListener("click", ui.navProjectT
 //       Refactor querySelector to include "Menu" and "Today", then
 //       create listener function to sort out each of the 3 nav choices.
 let iProject = 0
-document.querySelector("#nav-add-projects").addEventListener("click", e => {
-  ui.navAddProject(`project#${iProject}`, iProject);
-  iProject++;
+const addProjectContainer = document.querySelector("#nav-add-projects")
+addProjectContainer.addEventListener("click", projectForm);
+
+function projectForm () {
+  ui.navAddProjectPrompt();
+  addProjectContainer.removeEventListener("click", projectForm);
+  projectFormScan();
   projectListScan();
-});
+}
+
+function projectFormScan() {
+  const projectFormContainer = document.querySelector("form");
+  projectFormContainer.addEventListener("submit", function(e) {
+    e.preventDefault();
+    console.log("create pressed");
+  })
+  projectFormContainer.addEventListener("reset", function(e) {
+    ui.navAddProjectButton();
+    addProjectContainer.addEventListener("click", projectForm);
+  });
+}
 
 function projectListScan() {
   let projects = document.querySelectorAll(".nav-added-projects");
