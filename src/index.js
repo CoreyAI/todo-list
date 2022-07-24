@@ -3,31 +3,40 @@ import { ui } from "./UI";
 
 ui.start();
 
-document.querySelector("#menu-icon").addEventListener("click", e => {
-  ui.menuToggle();
-});
+document.querySelector("#menu-icon").addEventListener("click", ui.menuToggle);
 
-document.querySelector("#nav-projects").addEventListener("click", e => {
-  ui.navProjectToggle();
-});
+document.querySelector("#nav-projects").addEventListener("click", ui.navProjectToggle);
 
+// TODO: Replace generic project id counter with object property
+//       Refactor querySelector to include "Menu" and "Today", then
+//       create listener function to sort out each of the 3 nav choices.
 let iProject = 0
 document.querySelector("#nav-add-projects").addEventListener("click", e => {
-  e.preventDefault();
   ui.navAddProject(`project#${iProject}`, iProject);
   iProject++;
-
   projectListScan();
 });
 
-//TODO: Fix click duplication bug!
 function projectListScan() {
   let projects = document.querySelectorAll(".nav-added-projects");
   projects.forEach(addedProject => {
-    addedProject.addEventListener("click", function(e) {
-      console.log(this);
-    });
+    addedProject.addEventListener("click", projectListEvent);
   });
 }
 
-projectListScan();
+// TODO: Add project object logic to decision tree
+function projectListEvent(e) {
+  if (e.target.tagName == "DIV") {
+    console.log("div");
+    ui.showProjectContent();  // TODO: Associate function with specific project
+  } else if (e.target.tagName == "svg") {
+    // const index = e.path[1].id;
+    const element = e.path[1];
+    ui.navRemoveProject(element);
+  } else if (e.target.tagName == "path") {
+    const element = e.path[2];
+    ui.navRemoveProject(element)
+  } else {
+    console.log(e.target.tagName);
+  }
+}
