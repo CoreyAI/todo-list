@@ -25,7 +25,10 @@ function projectFormScan() {
   const projectFormContainer = document.querySelector("form");
   projectFormContainer.addEventListener("submit", function(e) {
     e.preventDefault();
-    console.log("create pressed");
+    const projectName = this['project-name'].value;
+    ui.navAddProject(projectName);
+    ui.navAddProjectButton();
+    addProjectContainer.addEventListener("click", projectForm);
   })
   projectFormContainer.addEventListener("reset", function(e) {
     ui.navAddProjectButton();
@@ -55,4 +58,5 @@ function projectListEvent(e) {
   } else {
     console.log(e.target.tagName);
   }
+  projectListScan();
 }
