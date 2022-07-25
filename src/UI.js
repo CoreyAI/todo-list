@@ -97,7 +97,7 @@ const ui = (() =>{
     const addedProjects = document.getElementById("nav-added-projects");
     const projectElement = document.createElement("div");
     projectElement.setAttribute("class", "nav-added-projects");
-    projectElement.setAttribute("id", iProject);
+    // projectElement.setAttribute("id", iProject);
     projectElement.innerHTML = `
       <div class="project-name">${name}</div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="project-delete" id="nav-projects-icon">
@@ -106,6 +106,12 @@ const ui = (() =>{
     `;
     addedProjects.appendChild(projectElement);
     iProject++;
+  }
+
+  const navAddProjectDataBase = (dbProject) => {
+    for (let i = 0; i < dbProject.length; i++) {
+      navAddProject(dbProject[i].name);
+    }
   }
 
   const navAddProjectPrompt = () => {
@@ -147,7 +153,7 @@ const ui = (() =>{
 
 
 
-  return {start, menuToggle, navProjectToggle, navAddProject, showProjectContent, navRemoveProject, navAddProjectPrompt, navAddProjectButton};
+  return {start, menuToggle, navProjectToggle, navAddProject, showProjectContent, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase};
 
 })();
 
