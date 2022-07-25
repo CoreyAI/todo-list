@@ -1,6 +1,7 @@
 import "./style.css";
 import { ui } from "./UI";
 import { project, task, dbProject } from "./db";
+import * as content from "./content"
 
 ui.start();
 
@@ -49,7 +50,9 @@ function projectListScan() {
 function projectListEvent(e) {
   if (e.target.tagName == "DIV") {
     console.log("div");
-    ui.showProjectContent();  // TODO: Associate function with specific project
+    const projectName = e.target.innerText;
+    // content.showProjectContent(projectName)
+    content.showProject(projectName);
   } else if (e.target.tagName == "svg") {
     // const index = e.path[1].id;
     const element = e.path[1];
@@ -66,6 +69,8 @@ function projectListEvent(e) {
 function addTestProject() {
   const project1 = project("Test Project");
   dbProject.push(project1);
+  const task1 = task("test task", "test description", "any date", "medium");
+  project1.setTask(task1);
   console.log("adding project db to nav");
   ui.navAddProjectDataBase(dbProject);
   projectListScan();
