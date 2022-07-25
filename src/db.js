@@ -1,4 +1,4 @@
-const projects = (name) => {
+const project = (name) => {
   const taskList = [];
   const getTasks = () => {
     return taskList;
@@ -28,4 +28,7 @@ const task = (title, description, dueDate, priority) => {
   return {title, description, dueDate, priority, getStatus, setStatus};
 }
 
-export {projects, task};
+// Temporary location for storing projects
+let dbProject = [];
+
+export {project, task, dbProject};
