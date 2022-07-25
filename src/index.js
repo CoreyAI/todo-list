@@ -1,5 +1,6 @@
 import "./style.css";
 import { ui } from "./UI";
+import { project, task, dbProject } from "./db";
 
 ui.start();
 
@@ -29,6 +30,7 @@ function projectFormScan() {
     ui.navAddProject(projectName);
     ui.navAddProjectButton();
     addProjectContainer.addEventListener("click", projectForm);
+    projectListScan();
   })
   projectFormContainer.addEventListener("reset", function(e) {
     ui.navAddProjectButton();
@@ -60,3 +62,13 @@ function projectListEvent(e) {
   }
   projectListScan();
 }
+
+function addTestProject() {
+  const project1 = project("Test Project");
+  dbProject.push(project1);
+  console.log("adding project db to nav");
+  ui.navAddProjectDataBase(dbProject);
+  projectListScan();
+}
+
+addTestProject();
