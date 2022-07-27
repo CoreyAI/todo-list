@@ -1,6 +1,6 @@
 import "./style.css";
 import { ui } from "./UI";
-import { project, task, dbProject } from "./db";
+import { project, task, dbProject, addProject, removeProject } from "./db";
 import * as content from "./content"
 
 ui.start();
@@ -28,6 +28,7 @@ function projectFormScan() {
   projectFormContainer.addEventListener("submit", function(e) {
     e.preventDefault();
     const projectName = this['project-name'].value;
+    addProject(projectName);
     ui.navAddProject(projectName);
     ui.navAddProjectButton();
     addProjectContainer.addEventListener("click", projectForm);
@@ -53,13 +54,20 @@ function projectListEvent(e) {
     const projectName = e.target.innerText;
     // content.showProjectContent(projectName)
     content.showProject(projectName);
+    console.table(dbProject)
   } else if (e.target.tagName == "svg") {
     // const index = e.path[1].id;
     const element = e.path[1];
+    const activeView = content.getActiveView();
     ui.navRemoveProject(element);
+    removeProject(e.path[1].children[0].innerText, activeView);
+    console.table(dbProject);
   } else if (e.target.tagName == "path") {
     const element = e.path[2];
+    const activeView = content.getActiveView();
     ui.navRemoveProject(element)
+    removeProject(e.path[2].children[0].innerText, activeView);
+    console.table(dbProject);
   } else {
     console.log(e.target.tagName);
   }
