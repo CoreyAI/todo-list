@@ -39,6 +39,9 @@
 #content-container {
   grid-area: content;
   background-color: yellow;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 #content-container.extend {
@@ -126,4 +129,67 @@ font-size: 0.8rem;
   align-self: end;
   padding-right: 1rem;
   padding-left: inherit;
+}
+
+#task-project-title {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0rem;
+  border: 2px solid black;
+  border-radius: 40px;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 25px;
+  margin-bottom: 0.5rem;
+}
+
+#task-title-description {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+}
+
+#task-title {
+  font-size: 1.5rem;
+}
+
+#task-date-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 1rem;
+  gap: 0.5rem;
+}
+
+.task-svg>svg {
+  height: 1.5rem;
+  border: 1px solid transparent;
+  padding: 0.05rem;
+}
+
+#task-create-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#task-create-button-text {
+  padding: 0rem 0.5rem 0rem 0.5rem;
+  border: 1px solid transparent;
+}
+
+#task-create-button-text:hover, .task-svg>svg:hover {
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+#task-create-button-text:active, .task-svg>svg:active {
+  background-color: lightgrey;
 }
