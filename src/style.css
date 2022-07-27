@@ -128,7 +128,7 @@ font-size: 0.8rem;
   justify-items: end;
   align-self: end;
   padding-right: 1rem;
-  padding-left: inherit;
+  /* padding-left: inherit; */
 }
 
 #task-project-title {
