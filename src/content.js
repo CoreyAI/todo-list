@@ -8,22 +8,67 @@ const resetContentContainer = () => {
 }
 
 const taskTemplate = (task) => {
-  const divContainer = document.createElement("div");
-  divContainer.setAttribute("class", "task");
+  const taskContainer = document.createElement("div");
+  taskContainer.setAttribute("class", "task");
+
+  const taskTitleDescriptionContainer = document.createElement("div");
+  taskTitleDescriptionContainer.setAttribute("id", "task-title-description");
 
   const taskTitle = document.createElement("div");
   taskTitle.setAttribute("id", "task-title");
   taskTitle.innerHTML = task.title;
-  divContainer.appendChild(taskTitle);
+  taskTitleDescriptionContainer.appendChild(taskTitle);
 
   const taskDescription = document.createElement("div");
   taskDescription.setAttribute("id", "task-description");
   taskDescription.innerHTML = task.description;
-  divContainer.appendChild(taskDescription);
+  taskTitleDescriptionContainer.appendChild(taskDescription);
 
-  contentContainer.appendChild(divContainer);
+  const taskDateOptionsContainer = document.createElement("div");
+  taskDateOptionsContainer.setAttribute("id", "task-date-options");
+
+  const taskDueDate = document.createElement("div");
+  taskDueDate.setAttribute("id", "task-due-date");
+  taskDueDate.innerHTML = task.dueDate;
+  taskDateOptionsContainer.appendChild(taskDueDate);
+
+  const taskEdit = document.createElement("div");
+  taskEdit.setAttribute("class", "task-svg");
+  taskEdit.setAttribute("id", "task-edit");
+  taskEdit.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+    </svg>
+  `;
+  taskDateOptionsContainer.appendChild(taskEdit);
+
+  const taskDelete = document.createElement("div");
+  taskDelete.setAttribute("class", "task-svg");
+  taskDelete.setAttribute("id", "task-delete");
+  taskDelete.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path fill="#000000" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
+    </svg>
+  `;
+  taskDateOptionsContainer.appendChild(taskDelete);
+
+  taskContainer.appendChild(taskTitleDescriptionContainer);
+  taskContainer.appendChild(taskDateOptionsContainer);
+
+  contentContainer.appendChild(taskContainer);
 }
 
+const projectTitle = (projectObject) => {
+  const titleContainer = document.createElement("div");
+  titleContainer.setAttribute("id", "task-project-title");
+
+  const projectTitle = projectObject.name;
+  titleContainer.innerText = projectTitle;
+
+  contentContainer.appendChild(titleContainer);
+}
+
+// BUG: project.getTasks() will render error if project has no tasks.
 const showProject = (projectName) => {
   const project = getProject(projectName);
   const tasks = project.getTasks();
@@ -31,6 +76,7 @@ const showProject = (projectName) => {
   console.log("tasks: ", tasks);
 
   resetContentContainer();
+  projectTitle(project);
   for (let i = 0; i < tasks.length; i++) {
     taskTemplate(tasks[i]);
   }
