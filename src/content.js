@@ -2,9 +2,11 @@
 import * as db from "./db";
 
 const contentContainer = document.getElementById("content-container");
+let activeView = '';
 
 const resetContentContainer = () => {
   contentContainer.innerHTML = "";
+  activeView = '';
 }
 
 const taskTemplate = (task) => {
@@ -68,19 +70,17 @@ const projectTitle = (projectObject) => {
   contentContainer.appendChild(titleContainer);
 }
 
-// BUG: project.getTasks() will render error if project has no tasks.
 const showProject = (projectName) => {
   const project = getProject(projectName);
   const tasks = project.getTasks();
-
-  console.log("tasks: ", tasks);
-
+  
   resetContentContainer();
   projectTitle(project);
   for (let i = 0; i < tasks.length; i++) {
     taskTemplate(tasks[i]);
   }
   addTaskButton();
+  activeView = project.name;
 }
 
 const showInbox = (projectName) => {
@@ -121,4 +121,8 @@ const addTaskButton = () => {
   contentContainer.appendChild(buttonContainer);
 }
 
-export { showProject };
+const getActiveView = () => {
+  return activeView;
+}
+
+export { showProject, getActiveView, resetContentContainer };
