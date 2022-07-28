@@ -140,13 +140,26 @@ const ui = (() =>{
     `
   }
 
-  // TODO: Link this function with dbProject.
   const navRemoveProject = (element) => {
     element.remove();
-    // db.dbProject.splice()
   }
 
-  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase};
+  const taskPromptTemplate = () => {
+    const overlay = document.createElement("div");
+    overlay.setAttribute("class", "overlay");
+
+    const taskPromptContainer = document.createElement("div");
+    taskPromptContainer.setAttribute("id", "task-prompt-container");
+
+    overlay.appendChild(taskPromptContainer);
+    content.appendChild(overlay);
+  }
+
+  const addTask = () => {
+    taskPromptTemplate();
+  }
+
+  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTask};
 
 })();
 
