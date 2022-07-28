@@ -193,3 +193,27 @@ font-size: 0.8rem;
 #task-create-button-text:active, .task-svg>svg:active {
   background-color: lightgrey;
 }
+
+#task-prompt-container {
+  --height: 250px;
+  --width: 400px;
+  position: fixed; 
+  height: var(--height);
+  width: var(--width);
+  top: calc(50% - calc(var(--height)/2));
+  left: calc(50% - calc(var(--width)/2));
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0, 0.9);
+}
+
