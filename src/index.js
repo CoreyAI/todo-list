@@ -54,6 +54,7 @@ function projectListEvent(e) {
     const projectName = e.target.innerText;
     // content.showProjectContent(projectName)
     content.showProject(projectName);
+    addTaskScan();
     console.table(dbProject)
   } else if (e.target.tagName == "svg") {
     // const index = e.path[1].id;
@@ -82,6 +83,16 @@ function addTestProject() {
   console.log("adding project db to nav");
   ui.navAddProjectDataBase(dbProject);
   projectListScan();
+}
+
+function addTaskScan() {
+  const task = document.getElementById("task-create-button-text");
+  task.addEventListener("click", addTask);
+}
+
+function addTask(e) {
+  console.log("add task clicked: ", e);
+  ui.addTask();
 }
 
 addTestProject();
