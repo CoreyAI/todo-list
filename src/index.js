@@ -9,10 +9,6 @@ document.querySelector("#menu-icon").addEventListener("click", ui.menuToggle);
 
 document.querySelector("#nav-projects").addEventListener("click", ui.navProjectToggle);
 
-// TODO: Replace generic project id counter with object property
-//       Refactor querySelector to include "Menu" and "Today", then
-//       create listener function to sort out each of the 3 nav choices.
-let iProject = 0
 const addProjectContainer = document.querySelector("#nav-add-projects")
 addProjectContainer.addEventListener("click", projectForm);
 
@@ -33,6 +29,7 @@ function projectFormScan() {
     ui.navAddProjectButton();
     addProjectContainer.addEventListener("click", projectForm);
     projectListScan();
+    addTaskScan();
   })
   projectFormContainer.addEventListener("reset", function(e) {
     ui.navAddProjectButton();
@@ -83,6 +80,8 @@ function addTestProject() {
   console.log("adding project db to nav");
   ui.navAddProjectDataBase(dbProject);
   projectListScan();
+  content.showProject(project1.name);
+  addTaskScan();
 }
 
 function addTaskScan() {
@@ -92,7 +91,8 @@ function addTaskScan() {
 
 function addTask(e) {
   console.log("add task clicked: ", e);
-  ui.addTask();
+  const projectName = e.target.parentElement.parentElement.childNodes[0].innerText;
+  ui.addTask("add", projectName);
 }
 
 addTestProject();
