@@ -63,5 +63,9 @@ const removeProject = (projectName, activeView) => {
   }
 }
 
+const getProjects = () => {
+  return dbProject;
+}
+
 // Consider removing dbProject from export and let the add/remove take over.
-export {project, task, dbProject, addProject, removeProject};
+export {project, task, dbProject, addProject, removeProject, getProjects};
