@@ -1,6 +1,6 @@
 import "./style.css";
 import { ui } from "./UI";
-import { project, task, dbProject, addProject, removeProject } from "./db";
+import { project, task, dbProject, addProject, removeProject, addTaskToProject } from "./db";
 import * as content from "./content"
 
 ui.start();
@@ -93,7 +93,7 @@ function addTaskScan() {
 function addTask(e) {
   console.log("add task clicked: ", e);
   const projectName = e.target.parentElement.parentElement.childNodes[0].innerText;
-  ui.addTask("add", projectName);
+  ui.addTaskPrompt("add", projectName);
   taskFormScan();
 }
 
@@ -103,10 +103,19 @@ function taskFormScan() {
     // TODO: Submit input, store input, and use inputs to create task.
     e.preventDefault;
     console.log("submit button pressed");
+
+    const inputTask = task(e.target['task-name'].value, e.target['task-description'].value, 
+    e.target['task-due-date'].value, e.target['task-priority'].value);
+    const inputProject = e.target['task-project'].value;
+    
+    addTaskToProject(inputTask, inputProject);
+    ui.removeTaskPrompt();
+    content.addTask(inputTask, inputProject);
   });
   taskScan.addEventListener("reset", function(e) {
     // TODO: remove prompt and clear any input contents.
     console.log("reset button pressed");
+    ui.removeTaskPrompt();
   });
 }
 
