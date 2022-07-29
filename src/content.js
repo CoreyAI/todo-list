@@ -1,5 +1,6 @@
 // import { project, task, dbProject } from "./db";
 import * as db from "./db";
+import { ui } from "./UI";
 
 const contentContainer = document.getElementById("content-container");
 let activeView = '';
@@ -55,6 +56,7 @@ const taskTemplate = (task) => {
   const taskEdit = document.createElement("div");
   taskEdit.setAttribute("class", "task-svg");
   taskEdit.setAttribute("id", "task-edit");
+  taskEdit.setAttribute("title", "edit");
   taskEdit.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="#000000" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
@@ -65,6 +67,7 @@ const taskTemplate = (task) => {
   const taskDelete = document.createElement("div");
   taskDelete.setAttribute("class", "task-svg");
   taskDelete.setAttribute("id", "task-delete");
+  taskDelete.setAttribute("title", "delete");
   taskDelete.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path fill="#000000" d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z" />
@@ -157,8 +160,20 @@ const addTaskButton = () => {
   contentContainer.appendChild(buttonContainer);
 }
 
+const modifyTask = (option, task, project, element) => {
+  // TODO
+  if (option == "task-edit") {
+    console.log("task-edit");
+  } else if (option == "task-delete") {
+    console.log("task-delete");
+    // ui.removeTask(element);
+  } else {
+    alert("error with content.modifyTask, option is: ", option);
+  }
+}
+
 const getActiveView = () => {
   return activeView;
 }
 
-export { showProject, getActiveView, resetContentContainer, addTask };
+export { showProject, getActiveView, resetContentContainer, addTask, modifyTask };
