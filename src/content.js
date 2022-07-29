@@ -57,7 +57,8 @@ const taskTemplate = (task) => {
   taskContainer.appendChild(taskTitleDescriptionContainer);
   taskContainer.appendChild(taskDateOptionsContainer);
 
-  contentContainer.appendChild(taskContainer);
+  // contentContainer.appendChild(taskContainer);
+  return taskContainer;
 }
 
 const projectTitle = (projectObject) => {
@@ -76,11 +77,28 @@ const showProject = (projectName) => {
   
   resetContentContainer();
   projectTitle(project);
+
+  const taskContainer = document.createElement("div");
+  taskContainer.setAttribute("id", "task-container");
   for (let i = 0; i < tasks.length; i++) {
-    taskTemplate(tasks[i]);
+    const taskElement = taskTemplate(tasks[i]);
+    taskContainer.appendChild(taskElement);
   }
+  contentContainer.appendChild(taskContainer);
   addTaskButton();
   activeView = project.name;
+}
+
+const addTask = (task, projectName) => {
+  console.log("showTask active");
+  
+  if (projectName != activeView) {
+    return;
+  }
+
+  const taskContainer = document.getElementById("task-container");
+  const taskElement = taskTemplate(task);
+  taskContainer.appendChild(taskElement);
 }
 
 const showInbox = (projectName) => {
@@ -125,4 +143,4 @@ const getActiveView = () => {
   return activeView;
 }
 
-export { showProject, getActiveView, resetContentContainer };
+export { showProject, getActiveView, resetContentContainer, addTask };
