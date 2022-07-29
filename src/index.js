@@ -23,6 +23,7 @@ function projectFormScan() {
   const projectFormContainer = document.querySelector("form");
   projectFormContainer.addEventListener("submit", function(e) {
     e.preventDefault();
+    console.log("this has been alerted");
     const projectName = this['project-name'].value;
     addProject(projectName);
     ui.navAddProject(projectName);
@@ -52,20 +53,20 @@ function projectListEvent(e) {
     // content.showProjectContent(projectName)
     content.showProject(projectName);
     addTaskScan();
-    console.table(dbProject)
+    // console.table(dbProject)
   } else if (e.target.tagName == "svg") {
     // const index = e.path[1].id;
     const element = e.path[1];
     const activeView = content.getActiveView();
     ui.navRemoveProject(element);
     removeProject(e.path[1].children[0].innerText, activeView);
-    console.table(dbProject);
+    // console.table(dbProject);
   } else if (e.target.tagName == "path") {
     const element = e.path[2];
     const activeView = content.getActiveView();
     ui.navRemoveProject(element)
     removeProject(e.path[2].children[0].innerText, activeView);
-    console.table(dbProject);
+    // console.table(dbProject);
   } else {
     console.log(e.target.tagName);
   }
@@ -77,7 +78,7 @@ function addTestProject() {
   dbProject.push(project1);
   const task1 = task("test task", "test description", "any date", "medium");
   project1.setTask(task1);
-  console.log("adding project db to nav");
+  // console.log("adding project db to nav");
   ui.navAddProjectDataBase(dbProject);
   projectListScan();
   content.showProject(project1.name);
@@ -93,6 +94,20 @@ function addTask(e) {
   console.log("add task clicked: ", e);
   const projectName = e.target.parentElement.parentElement.childNodes[0].innerText;
   ui.addTask("add", projectName);
+  taskFormScan();
+}
+
+function taskFormScan() {
+  const taskScan = document.querySelector("form");
+  taskScan.addEventListener("submit", function(e) {
+    // TODO: Submit input, store input, and use inputs to create task.
+    e.preventDefault;
+    console.log("submit button pressed");
+  });
+  taskScan.addEventListener("reset", function(e) {
+    // TODO: remove prompt and clear any input contents.
+    console.log("reset button pressed");
+  });
 }
 
 addTestProject();
