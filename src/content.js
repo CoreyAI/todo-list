@@ -34,6 +34,24 @@ const taskTemplate = (task) => {
   taskDueDate.innerHTML = task.dueDate;
   taskDateOptionsContainer.appendChild(taskDueDate);
 
+  const taskPriority = document.createElement("div");
+  taskPriority.setAttribute("id", "task-priority-circle");
+  switch (task.priority) {
+    case ("low"):
+      taskPriority.setAttribute("style", "background-color: green;");
+      taskPriority.setAttribute("title", "low priority");
+      break;
+      case ("medium"):
+        taskPriority.setAttribute("style", "background-color: yellow;");
+        taskPriority.setAttribute("title", "medium priority");
+        break;
+        case ("high"):
+          taskPriority.setAttribute("style", "background-color: red;");
+          taskPriority.setAttribute("title", "high priority");
+      break;
+  }
+  taskDateOptionsContainer.appendChild(taskPriority);
+
   const taskEdit = document.createElement("div");
   taskEdit.setAttribute("class", "task-svg");
   taskEdit.setAttribute("id", "task-edit");
