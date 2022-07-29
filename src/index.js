@@ -99,21 +99,26 @@ function addTask(e) {
 
 function taskFormScan() {
   const taskScan = document.querySelector("form");
+
   taskScan.addEventListener("submit", function(e) {
-    // TODO: Submit input, store input, and use inputs to create task.
     e.preventDefault;
     console.log("submit button pressed");
 
-    const inputTask = task(e.target['task-name'].value, e.target['task-description'].value, 
-    e.target['task-due-date'].value, e.target['task-priority'].value);
-    const inputProject = e.target['task-project'].value;
-    
+    const inputArray = [e.target['task-name'].value, e.target['task-description'].value, e.target['task-due-date'].value, e.target['task-priority'].value, e.target['task-project'].value];
+
+    if (inputArray[2] == "") {
+      inputArray[2] = "no date";
+    }
+
+    const inputTask = task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
+    const inputProject = inputArray[4];
+
     addTaskToProject(inputTask, inputProject);
     ui.removeTaskPrompt();
     content.addTask(inputTask, inputProject);
   });
+
   taskScan.addEventListener("reset", function(e) {
-    // TODO: remove prompt and clear any input contents.
     console.log("reset button pressed");
     ui.removeTaskPrompt();
   });
