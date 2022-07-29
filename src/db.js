@@ -67,5 +67,14 @@ const getProjects = () => {
   return dbProject;
 }
 
+const addTaskToProject = (task, projectName) => {
+  for (let i = 0; i < dbProject.length; i++) {
+    if (dbProject[i].name == projectName) {
+      dbProject[i].setTask(task);
+      return;
+    }
+  }
+}
+
 // Consider removing dbProject from export and let the add/remove take over.
-export {project, task, dbProject, addProject, removeProject, getProjects};
+export {project, task, dbProject, addProject, removeProject, getProjects, addTaskToProject};
