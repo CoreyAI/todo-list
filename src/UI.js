@@ -244,7 +244,11 @@ const ui = (() =>{
     overlayContainer[0].remove();
   }
 
-  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTaskPrompt, removeTaskPrompt};
+  const removeTask = (taskElement) => {
+    taskElement.remove()
+  }
+
+  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTaskPrompt, removeTaskPrompt, removeTask};
 
 })();
 
