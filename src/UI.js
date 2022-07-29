@@ -165,31 +165,31 @@ const ui = (() =>{
     formContainer.innerHTML = `
       <div id="task-prompt-form-inputs">
         <div id="task-prompt-form-lh">
-          <label htmlFor="name">
+          <label htmlFor="task-name">
             <span class="task-prompt-label">Name:</span>
-            <input type="text" name="name" id="name"/>
+            <input type="text" name="name" id="task-name" required/>
           </label>
-          <label htmlFor="description">
+          <label htmlFor="task-description">
             <span class="task-prompt-label">Description:</span>
-            <textarea id="description" rows="4""></textarea>
+            <textarea id="task-description" rows="4""></textarea>
           </label>
         </div>
         <div id="task-prompt-form-rh">
-          <label htmlFor="due-date">
+          <label htmlFor="task-due-date">
             <span class="task-prompt-label">Due Date:</span>
-            <input type="datetime-local" name="due-date" id="due-date"/>
+            <input type="datetime-local" name="due-date" id="task-due-date"/>
           </label>
-          <label htmlFor="priority">
+          <label htmlFor="task-priority">
             <span class="task-prompt-label">Priority:</span>
-            <select name="priority" id="priority">
+            <select name="priority" id="task-priority">
               <option value="low">low</option>
               <option value="medium">medium</option>
               <option value="high">high</option>
             </select>
           </label>
-          <label htmlFor="project">
+          <label htmlFor="task-project">
             <span class="task-prompt-label">Project:</span>
-            <select name="project" id="project">
+            <select name="project" id="task-project">
               ${projectList(projectName)}
             </select>
           </label>
@@ -235,13 +235,16 @@ const ui = (() =>{
     content.appendChild(overlay);
   }
 
-  
-
-  const addTask = (state, projectName) => {
+  const addTaskPrompt = (state, projectName) => {
     taskPromptTemplate(state, projectName);
   }
 
-  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTask};
+  const removeTaskPrompt = () => {
+    const overlayContainer = document.getElementsByClassName("overlay");
+    overlayContainer[0].remove();
+  }
+
+  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTaskPrompt, removeTaskPrompt};
 
 })();
 
