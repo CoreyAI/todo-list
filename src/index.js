@@ -19,6 +19,7 @@ function projectForm () {
   projectListScan();
 }
 
+// TODO: separate the event functions below so that it can consider adding and editing tasks;
 function projectFormScan() {
   const projectFormContainer = document.querySelector("form");
   projectFormContainer.addEventListener("submit", function(e) {
@@ -107,21 +108,24 @@ function taskFormScan() {
     }
 
     const taskState = ui.getTaskState();
-    let inputTask, inputProject;
+    const inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
+    const inputProject = inputArray[4];
+
     if (taskState == "add") {
-      inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
-      inputProject = inputArray[4];
+      console.log("index.taskFormScan > taskState = add");
+      db.addTaskToProject(inputTask, inputProject);
+      content.addTask(inputTask, inputProject);
     } else if (taskState == "edit") {
       // TODO: Add logic here to handle editing a task;
+      console.log("index.taskFormScan > taskState = edit");
+
     } else {
       console.log("error: taskState = ". taskState);
     }
 
     // TODO: Potentially modify logic block below to accommodate for adding/editing tasks.
     console.log("inputTask = ", inputTask);
-    db.addTaskToProject(inputTask, inputProject);
     ui.removeTaskPrompt();
-    content.addTask(inputTask, inputProject);
     taskOptionScan();
   });
 
@@ -160,6 +164,10 @@ function taskOptionSelection(e) {
   console.log(selection)
 
   content.modifyTask(selection["option"], selection["task"], selection["project"], selection["taskElement"]);
+  
+  if (selection["option"] == "task-edit") {
+    taskFormScan();
+  }
   taskOptionScan();
 
 }
