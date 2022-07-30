@@ -8,6 +8,8 @@ const ui = (() =>{
   const content = document.getElementById("content-container");
   const footer = document.getElementById("footer");
 
+  let taskState = "";
+
   const appendChild = (eParent, eChild) => {
     if (eParent == null) {
       eParent.appendChild(eChild);
@@ -144,7 +146,7 @@ const ui = (() =>{
     element.remove();
   }
 
-  const taskPromptTemplate = (state, projectName) => {
+  const taskPromptTemplate = (state, projectName, taskName) => {
     const overlay = document.createElement("div");
     overlay.setAttribute("class", "overlay");
 
@@ -167,24 +169,24 @@ const ui = (() =>{
         <div id="task-prompt-form-lh">
           <label htmlFor="task-name">
             <span class="task-prompt-label">Name:</span>
-            <input type="text" name="name" id="task-name" required/>
+            <input type="text" name="name" id="task-name" required ${showValue("title")}/>
           </label>
           <label htmlFor="task-description">
             <span class="task-prompt-label">Description:</span>
-            <textarea id="task-description" rows="4""></textarea>
+            <textarea id="task-description" rows="4" >${showValue("description")}</textarea>
           </label>
         </div>
         <div id="task-prompt-form-rh">
           <label htmlFor="task-due-date">
             <span class="task-prompt-label">Due Date:</span>
-            <input type="datetime-local" name="due-date" id="task-due-date"/>
+            <input type="datetime-local" name="due-date" id="task-due-date" ${showValue("dueDate")}/>
           </label>
           <label htmlFor="task-priority">
             <span class="task-prompt-label">Priority:</span>
             <select name="priority" id="task-priority">
-              <option value="low">low</option>
-              <option value="medium">medium</option>
-              <option value="high">high</option>
+              <option value="low" ${showValue("priority", "low")}>low</option>
+              <option value="medium" ${showValue("priority", "medium")}>medium</option>
+              <option value="high" ${showValue("priority", "high")}>high</option>
             </select>
           </label>
           <label htmlFor="task-project">
@@ -199,21 +201,7 @@ const ui = (() =>{
         <button type="submit">Submit</button>
         <button type="reset">Reset</button>
       </div>
-    `
-    // if (state == "add" || state == "edit") {
-    //   formContainer.innerHTML += `
-    //     <label htmlFor="project">
-    //       <span class="task-prompt-label">Project</span>
-    //       <select name="project" id="project">
-    //         ${projectList(projectName)}
-    //       </select>
-    //     </label>
-    //   `;
-    // } 
-    // formContainer.innerHTML += `
-    //   <button type="submit">Submit</button>
-    //   <button type="reset">Reset</button>
-    // `;
+    `;
 
     function projectList(projectName) {
       let options = '';
@@ -229,14 +217,43 @@ const ui = (() =>{
       return options;
     }
 
+    // TODO: fix add task function so that submitting an edited task works as intended.
+    function showValue(type, priorityLevel) {
+      if (taskState == "add") {
+        return '';
+      }
+      
+      const projectList = db.getProjects();
+      for (let i = 0; i < projectList.length; i++) {
+        let tmp = projectList[i].name;
+        if (tmp == projectName) {
+          let taskList = projectList[i].getTasks();
+          for (let j = 0; j < taskList.length; j++) {
+            if (taskName == taskList[j]["title"]) {
+              if (type == "description") {
+                return `${taskList[j][type]}`
+              } else if (type == "priority") {
+                if (priorityLevel == taskList[j][type]) {
+                  return "selected";
+                }
+              } else {
+                return `value="${taskList[j][type]}"`
+              }
+            }
+          }
+        }
+      }
+    }
+
     taskPromptContainer.appendChild(title);
     taskPromptContainer.appendChild(formContainer);
     overlay.appendChild(taskPromptContainer);
     content.appendChild(overlay);
   }
 
-  const addTaskPrompt = (state, projectName) => {
-    taskPromptTemplate(state, projectName);
+  const addTaskPrompt = (state, projectName, taskName) => {
+    taskState = state;
+    taskPromptTemplate(state, projectName, taskName);
   }
 
   const removeTaskPrompt = () => {
@@ -248,7 +265,11 @@ const ui = (() =>{
     taskElement.remove()
   }
 
-  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTaskPrompt, removeTaskPrompt, removeTask};
+  const getTaskState = () => {
+    return taskState;
+  }
+
+  return {start, menuToggle, navProjectToggle, navAddProject, navRemoveProject, navAddProjectPrompt, navAddProjectButton, navAddProjectDataBase, addTaskPrompt, removeTaskPrompt, removeTask, getTaskState};
 
 })();
 
