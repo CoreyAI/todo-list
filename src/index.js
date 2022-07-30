@@ -110,6 +110,7 @@ function taskFormScan() {
     const taskState = ui.getTaskState();
     const inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
     const inputProject = inputArray[4];
+    const activeProject = content.getActiveView();
 
     if (taskState == "add") {
       // console.log("index.taskFormScan > taskState = add");
@@ -118,7 +119,7 @@ function taskFormScan() {
     } else if (taskState == "edit") {
       // TODO: Add logic here to handle editing a task;
       // console.log("index.taskFormScan > taskState = edit");
-      content.updateTask(inputArray, inputProject);
+      content.updateTask(inputArray, activeProject);
     } else {
       console.log("error: taskState = ". taskState);
     }
