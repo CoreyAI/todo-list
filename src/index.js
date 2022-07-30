@@ -52,6 +52,7 @@ function projectListEvent(e) {
     const projectName = e.target.innerText;
     content.showProject(projectName);
     addTaskScan();
+    taskOptionScan();
   } else if (e.target.tagName == "svg") {
     const element = e.path[1];
     const activeView = content.getActiveView();
@@ -105,9 +106,19 @@ function taskFormScan() {
       inputArray[2] = "no date";
     }
 
-    const inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
-    const inputProject = inputArray[4];
+    const taskState = ui.getTaskState();
+    let inputTask, inputProject;
+    if (taskState == "add") {
+      inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
+      inputProject = inputArray[4];
+    } else if (taskState == "edit") {
+      // TODO: Add logic here to handle editing a task;
+    } else {
+      console.log("error: taskState = ". taskState);
+    }
 
+    // TODO: Potentially modify logic block below to accommodate for adding/editing tasks.
+    console.log("inputTask = ", inputTask);
     db.addTaskToProject(inputTask, inputProject);
     ui.removeTaskPrompt();
     content.addTask(inputTask, inputProject);
@@ -149,6 +160,7 @@ function taskOptionSelection(e) {
   console.log(selection)
 
   content.modifyTask(selection["option"], selection["task"], selection["project"], selection["taskElement"]);
+  taskOptionScan();
 
 }
 
