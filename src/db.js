@@ -12,7 +12,11 @@ const project = (name) => {
     const taskIndex = taskList.indexOf(taskName);
     taskList.splice(taskIndex, 1);
   }
-  return {name, getTasks, setTask, removeTask};
+  const getTaskIndex = (taskName) => {
+    const taskIndex = taskList.indexOf(taskName);
+    return taskIndex;
+  }
+  return {name, getTasks, setTask, removeTask, getTaskIndex};
 }
 
 const task = (title, description, dueDate, priority) => {
