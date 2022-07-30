@@ -4,6 +4,7 @@ import { ui } from "./UI";
 
 const contentContainer = document.getElementById("content-container");
 let activeView = '';
+let activeTaskIndex;
 
 const resetContentContainer = () => {
   contentContainer.innerHTML = "";
@@ -111,8 +112,6 @@ const showProject = (projectName) => {
 }
 
 const addTask = (task, projectName) => {
-  console.log("showTask active");
-  
   if (projectName != activeView) {
     return;
   }
@@ -120,6 +119,31 @@ const addTask = (task, projectName) => {
   const taskContainer = document.getElementById("task-container");
   const taskElement = taskTemplate(task);
   taskContainer.appendChild(taskElement);
+}
+
+const updateTask = (inputArray, projectName) => {
+  if (projectName != activeView) {
+    return;
+  }
+
+  // const inputArray = [e.target['task-name'].value, e.target['task-description'].value, e.target['task-due-date'].value, e.target['task-priority'].value, e.target['task-project'].value];
+
+  const projectObject = getProject(projectName);
+  const taskList = projectObject.getTasks();
+
+  let i = activeTaskIndex;
+  for (let j = 0; j < inputArray.length; j++) {
+    taskList[i][j] = inputArray[j];
+  }
+
+  const taskContainer = document.getElementById("task-container");
+  const taskElement = taskTemplate(taskList[i]);
+
+  // TODO: Investigate this command to determine why it doesn't print to webpage.
+  taskContainer.replaceChild(taskContainer.childNodes[i], taskElement);
+
+
+
 }
 
 const showInbox = (projectName) => {
@@ -161,13 +185,16 @@ const addTaskButton = () => {
 }
 
 const modifyTask = (option, task, project, element) => {
-  // TODO
+  let projectObject = getProject(project);
+  activeTaskIndex = projectObject.getTaskIndex(task);
   if (option == "task-edit") {
     console.log("task-edit");
     ui.addTaskPrompt("edit", project, task);
   } else if (option == "task-delete") {
     console.log("task-delete");
-    // ui.removeTask(element);
+    projectObject.removeTask(task);
+    ui.removeTask(element);
+    console.log(`Project "${projectObject.name} > Tasks: ${projectObject.getTasks()}"`)
   } else {
     alert("error with content.modifyTask, option is: ", option);
   }
@@ -177,4 +204,4 @@ const getActiveView = () => {
   return activeView;
 }
 
-export { showProject, getActiveView, resetContentContainer, addTask, modifyTask };
+export { showProject, getActiveView, resetContentContainer, addTask, modifyTask, updateTask };
