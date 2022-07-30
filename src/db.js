@@ -9,12 +9,16 @@ const project = (name) => {
     taskList.push(task);
   }
   const removeTask = (taskName) => {
-    const taskIndex = taskList.indexOf(taskName);
+    const taskIndex = getTaskIndex(taskName);
     taskList.splice(taskIndex, 1);
   }
   const getTaskIndex = (taskName) => {
-    const taskIndex = taskList.indexOf(taskName);
-    return taskIndex;
+    for (let i = 0; i < taskList.length; i++) {
+      if (taskName == taskList[i].title) {
+        return i;
+      }
+    }
+    return -1;
   }
   return {name, getTasks, setTask, removeTask, getTaskIndex};
 }
