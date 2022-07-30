@@ -112,13 +112,13 @@ function taskFormScan() {
     const inputProject = inputArray[4];
 
     if (taskState == "add") {
-      console.log("index.taskFormScan > taskState = add");
+      // console.log("index.taskFormScan > taskState = add");
       db.addTaskToProject(inputTask, inputProject);
       content.addTask(inputTask, inputProject);
     } else if (taskState == "edit") {
       // TODO: Add logic here to handle editing a task;
-      console.log("index.taskFormScan > taskState = edit");
-
+      // console.log("index.taskFormScan > taskState = edit");
+      content.updateTask(inputArray, inputProject);
     } else {
       console.log("error: taskState = ". taskState);
     }
