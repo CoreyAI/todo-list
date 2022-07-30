@@ -4,7 +4,7 @@ import { ui } from "./UI";
 
 const contentContainer = document.getElementById("content-container");
 let activeView = '';
-let activeTaskIndex;
+let activeTaskIndex = '';
 
 const resetContentContainer = () => {
   contentContainer.innerHTML = "";
@@ -121,29 +121,30 @@ const addTask = (task, projectName) => {
   taskContainer.appendChild(taskElement);
 }
 
+// TODO: create/modify logic to move tasks to another project
 const updateTask = (inputArray, projectName) => {
+  // This will never activate since editing a task will always be in the visible project space.
   if (projectName != activeView) {
     return;
   }
 
   // const inputArray = [e.target['task-name'].value, e.target['task-description'].value, e.target['task-due-date'].value, e.target['task-priority'].value, e.target['task-project'].value];
 
+  // This logic will need to be modified in order to accommodate for a project change!
   const projectObject = getProject(projectName);
   const taskList = projectObject.getTasks();
 
-  let i = activeTaskIndex;
-  for (let j = 0; j < inputArray.length; j++) {
-    taskList[i][j] = inputArray[j];
-  }
+  let i = activeTaskIndex;  // -1?
+  taskList[i].title = inputArray[0];
+  taskList[i].description = inputArray[1];
+  taskList[i].dueDate = inputArray[2];
+  taskList[i].priority = inputArray[3];
 
   const taskContainer = document.getElementById("task-container");
   const taskElement = taskTemplate(taskList[i]);
+  const childElement = taskContainer.childNodes[i];
 
-  // TODO: Investigate this command to determine why it doesn't print to webpage.
-  taskContainer.replaceChild(taskContainer.childNodes[i], taskElement);
-
-
-
+  taskContainer.replaceChild(taskElement, childElement);
 }
 
 const showInbox = (projectName) => {
