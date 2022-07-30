@@ -199,7 +199,7 @@ const ui = (() =>{
       </div>
       <div id="task-prompt-form-buttons">
         <button type="submit">Submit</button>
-        <button type="reset">Reset</button>
+        <button type="reset">Cancel</button>
       </div>
     `;
 
