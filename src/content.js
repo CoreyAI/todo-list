@@ -164,6 +164,7 @@ const modifyTask = (option, task, project, element) => {
   // TODO
   if (option == "task-edit") {
     console.log("task-edit");
+    ui.addTaskPrompt("edit", project, task);
   } else if (option == "task-delete") {
     console.log("task-delete");
     // ui.removeTask(element);
