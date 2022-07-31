@@ -7,19 +7,39 @@ ui.start();
 
 document.querySelector("#menu-icon").addEventListener("click", ui.menuToggle);
 
-document.querySelector("#nav-projects").addEventListener("click", ui.navProjectToggle);
-
 const addProjectContainer = document.querySelector("#nav-add-projects")
 addProjectContainer.addEventListener("click", projectForm);
 
-function projectForm () {
+const navMenu = document.querySelectorAll(".nav-main-choices");
+navMenu.forEach(selection => {
+  selection.addEventListener("click", navEvent);
+});
+
+function navEvent(e) {
+  console.log("navEvent triggered: ", e);
+  switch (this.id) {
+    case "nav-inbox":
+      //TODO:
+      content.showInbox();
+      taskOptionScan();
+      break;
+    case "nav-today":
+      //TODO
+      content.showToday();
+      break;
+    case "nav-projects":
+      ui.navProjectToggle();
+      break;
+  }
+}
+
+function projectForm() {
   ui.navAddProjectPrompt();
   addProjectContainer.removeEventListener("click", projectForm);
   projectFormScan();
   projectListScan();
 }
 
-// TODO: separate the event functions below so that it can consider adding and editing tasks;
 function projectFormScan() {
   const projectFormContainer = document.querySelector("form");
   projectFormContainer.addEventListener("submit", function(e) {
@@ -46,7 +66,6 @@ function projectListScan() {
   });
 }
 
-// TODO: Add project object logic to decision tree
 function projectListEvent(e) {
   if (e.target.tagName == "DIV") {
     console.log("div");
@@ -73,7 +92,7 @@ function projectListEvent(e) {
 function addTestProject() {
   const project1 = db.project("Test Project");
   db.dbProject.push(project1);
-  const task1 = db.task("test task", "test description", "any date", "medium");
+  const task1 = db.task("test task", "test description", "any date", "medium", project1.name);
   project1.setTask(task1);
   ui.navAddProjectDataBase(db.dbProject);
   projectListScan();
@@ -108,7 +127,7 @@ function taskFormScan() {
     }
 
     const taskState = ui.getTaskState();
-    const inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3]);
+    const inputTask = db.task(inputArray[0], inputArray[1], inputArray[2], inputArray[3], inputArray[4]);
     const inputProject = inputArray[4];
     const activeProject = content.getActiveView();
 
@@ -117,14 +136,12 @@ function taskFormScan() {
       db.addTaskToProject(inputTask, inputProject);
       content.addTask(inputTask, inputProject);
     } else if (taskState == "edit") {
-      // TODO: Add logic here to handle editing a task;
       // console.log("index.taskFormScan > taskState = edit");
       content.updateTask(inputArray, activeProject);
     } else {
       console.log("error: taskState = ". taskState);
     }
 
-    // TODO: Potentially modify logic block below to accommodate for adding/editing tasks.
     console.log("inputTask = ", inputTask);
     ui.removeTaskPrompt();
     taskOptionScan();
@@ -143,26 +160,18 @@ function taskOptionScan() {
   });
 }
 
+// Future reference: technical debt created with project object. Should set tasks
+// in their own individual array with project value for better organization/
+// sorting. Can look to fix this in the future with a code refactor.
 function taskOptionSelection(e) {
   console.log("option has been selected: ", e);
 
   let selection = {option: null, task: null, project: null, taskElement: null};
 
-  if (e.target.tagName == "svg") {
-    selection["option"] = e.target.parentElement.id;
-    selection["task"] = e.target.parentElement.parentElement.parentElement.childNodes[0].childNodes[0].innerText;
-    selection["project"] = content.getActiveView();
-    selection["taskElement"] = e.target.parentElement.parentElement.parentElement;
-  } else if (e.target.tagName == "path") {
-    selection["option"] = e.target.parentElement.parentElement.id;
-    selection["task"] = e.target.parentElement.parentElement.parentElement.parentElement.childNodes[0].childNodes[0].innerText;
-    selection["project"] = content.getActiveView();
-    selection["taskElement"] = e.target.parentElement.parentElement.parentElement.parentElement;
-  } else {
-    alert("error in index.taskOptionSelection, tag name is: ", e.target.tagName);
-  }
-
-  console.log(selection)
+  selection["option"] = this.id
+  selection["task"] = this.parentElement.parentElement.childNodes[0].childNodes[0].innerText;
+  selection["project"] = content.getActiveView();
+  selection["taskElement"] = this.parentElement.parentElement;
 
   content.modifyTask(selection["option"], selection["task"], selection["project"], selection["taskElement"]);
   
