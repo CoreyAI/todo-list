@@ -31,9 +31,9 @@ const ui = (() =>{
     return e;
   }
 
-  const headerLogo = () => {
+  const headerLogo = () => {``
     const e = `
-      <div class="logo">Test Logo Text</div>
+      <div class="logo">To-Do List</div>
     `
     return e;
   }
