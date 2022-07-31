@@ -23,7 +23,7 @@ const project = (name) => {
   return {name, getTasks, setTask, removeTask, getTaskIndex};
 }
 
-const task = (title, description, dueDate, priority) => {
+const task = (title, description, dueDate, priority, project) => {
   const status = false;
   const getStatus = () => {
     return status;
@@ -35,7 +35,7 @@ const task = (title, description, dueDate, priority) => {
       status = false;
     }
   }
-  return {title, description, dueDate, priority, getStatus, setStatus};
+  return {title, description, dueDate, priority, project, getStatus, setStatus};
 }
 
 // Temporary location for storing projects
