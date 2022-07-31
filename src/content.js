@@ -83,11 +83,11 @@ const taskTemplate = (task) => {
   return taskContainer;
 }
 
-const projectTitle = (projectObject) => {
+const projectTitle = (projectName) => {
   const titleContainer = document.createElement("div");
   titleContainer.setAttribute("id", "task-project-title");
 
-  const projectTitle = projectObject.name;
+  const projectTitle = projectName;
   titleContainer.innerText = projectTitle;
 
   contentContainer.appendChild(titleContainer);
@@ -98,8 +98,14 @@ const showProject = (projectName) => {
   const tasks = project.getTasks();
   
   resetContentContainer();
-  projectTitle(project);
+  projectTitle(projectName);
+  showTasks(tasks);
 
+  addTaskButton();
+  activeView = projectName;
+}
+
+const showTasks = (tasks) => {
   const taskContainer = document.createElement("div");
   taskContainer.setAttribute("id", "task-container");
   for (let i = 0; i < tasks.length; i++) {
@@ -107,8 +113,6 @@ const showProject = (projectName) => {
     taskContainer.appendChild(taskElement);
   }
   contentContainer.appendChild(taskContainer);
-  addTaskButton();
-  activeView = project.name;
 }
 
 const addTask = (task, projectName) => {
@@ -153,12 +157,19 @@ const updateTask = (inputArray, projectName) => {
 
 }
 
-const showInbox = (projectName) => {
-
+const showInbox = () => {
+  resetContentContainer();
+  projectTitle("Inbox");
+  // const projects = db.getProjects();
+  // for (let i = 0; i < projects.length; i++) {
+  //   const tasks = projects[i].getTasks();
+  //   showTasks(tasks);
+  // }
 }
 
 const showToday = () => {
-
+  resetContentContainer();
+  projectTitle("Today");
 }
 
 const getProject = (projectName) => {
@@ -211,4 +222,4 @@ const getActiveView = () => {
   return activeView;
 }
 
-export { showProject, getActiveView, resetContentContainer, addTask, modifyTask, updateTask };
+export { showProject, getActiveView, resetContentContainer, addTask, modifyTask, updateTask, showInbox, showToday };
