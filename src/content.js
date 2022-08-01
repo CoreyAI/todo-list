@@ -21,6 +21,7 @@ const taskTemplate = (task) => {
   const taskCompletionCheck = document.createElement("div");
   taskCompletionCheck.setAttribute("class", "task-completion-false");
   taskCompletionCheck.setAttribute("id", "task-completion-check");
+  taskCompletionCheck.setAttribute("title", "task pending");
   taskLeftSideContainer.appendChild(taskCompletionCheck);
 
   const taskTitleDescriptionContainer = document.createElement("div");
@@ -170,6 +171,14 @@ const updateTask = (inputArray, projectName) => {
 
 }
 
+const getTask = (projectName, taskName) => {
+  const project = getProject(projectName);
+  const taskList = project.getTasks();
+  const taskIndex = project.getTaskIndex(taskName);
+
+  return taskList[taskIndex];
+}
+
 const showInbox = () => {
   resetContentContainer();
   projectTitle("Inbox");
@@ -231,8 +240,31 @@ const modifyTask = (option, task, project, element) => {
   }
 }
 
+const toggleTaskStatus = (projectName, taskName, taskContainer) => {
+
+  const task = getTask(projectName, taskName);
+  const checkContainer = taskContainer.childNodes[0].childNodes[0]
+  const taskTitleContainer = taskContainer.childNodes[0].childNodes[1].childNodes[0]
+  const taskDescriptionContainer = taskContainer.childNodes[0].childNodes[1].childNodes[1]
+
+  task.toggleCompletionStatus();
+  
+  const taskStatus = task.getCompletionStatus();
+  if (taskStatus == true) {
+    checkContainer.setAttribute("class", "task-completion-true");
+    checkContainer.setAttribute("title", "task complete");
+    taskTitleContainer.setAttribute("class", "task-completion-true");
+    taskDescriptionContainer.setAttribute("class", "task-completion-true");
+  } else {
+    checkContainer.setAttribute("class", "task-completion-false");
+    checkContainer.setAttribute("title", "task pending");
+    taskTitleContainer.setAttribute("class", "task-completion-false");
+    taskDescriptionContainer.setAttribute("class", "task-completion-false");
+  }
+}
+
 const getActiveView = () => {
   return activeView;
 }
 
-export { showProject, getActiveView, resetContentContainer, addTask, modifyTask, updateTask, showInbox, showToday };
+export { showProject, getActiveView, resetContentContainer, addTask, modifyTask, updateTask, showInbox, showToday, toggleTaskStatus };

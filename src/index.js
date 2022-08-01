@@ -26,6 +26,7 @@ function navEvent(e) {
     case "nav-today":
       //TODO
       content.showToday();
+      taskOptionScan();
       break;
     case "nav-projects":
       ui.navProjectToggle();
@@ -51,6 +52,7 @@ function projectFormScan() {
     ui.navAddProjectButton();
     addProjectContainer.addEventListener("click", projectForm);
     projectListScan();
+    taskScan();
     addTaskScan();
   })
   projectFormContainer.addEventListener("reset", function(e) {
@@ -71,6 +73,7 @@ function projectListEvent(e) {
     console.log("div");
     const projectName = e.target.innerText;
     content.showProject(projectName);
+    taskScan();
     addTaskScan();
     taskOptionScan();
   } else if (e.target.tagName == "svg") {
@@ -97,8 +100,30 @@ function addTestProject() {
   ui.navAddProjectDataBase(db.dbProject);
   projectListScan();
   content.showProject(project1.name);
+  taskScan();
   addTaskScan();
   taskOptionScan();
+}
+
+function taskScan() {
+  const tasks = document.querySelectorAll(".task");
+  tasks.forEach(task => {
+    task.addEventListener("click", taskToggle);
+  });
+}
+
+function taskToggle(e) {
+  if (e.target.parentElement.id == "task-edit" || e.target.parentElement.parentElement.id == "task-edit") {
+    return;
+  }
+
+  const projectName = content.getActiveView();
+  const taskName = this.childNodes[0].childNodes[1].childNodes[0].innerText;
+  // const checkContainer = this.childNodes[0].childNodes[0];
+  const taskContainer = this;
+
+  content.toggleTaskStatus(projectName, taskName, taskContainer);
+
 }
 
 function addTaskScan() {
@@ -114,9 +139,9 @@ function addTask(e) {
 }
 
 function taskFormScan() {
-  const taskScan = document.querySelector("form");
+  const taskContainer = document.querySelector("form");
 
-  taskScan.addEventListener("submit", function(e) {
+  taskContainer.addEventListener("submit", function(e) {
     e.preventDefault;
     console.log("submit button pressed");
 
@@ -145,9 +170,10 @@ function taskFormScan() {
     console.log("inputTask = ", inputTask);
     ui.removeTaskPrompt();
     taskOptionScan();
+    taskScan();
   });
 
-  taskScan.addEventListener("reset", function(e) {
+  taskContainer.addEventListener("reset", function(e) {
     console.log("reset button pressed");
     ui.removeTaskPrompt();
   });
