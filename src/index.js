@@ -169,7 +169,7 @@ function taskOptionSelection(e) {
   let selection = {option: null, task: null, project: null, taskElement: null};
 
   selection["option"] = this.id
-  selection["task"] = this.parentElement.parentElement.childNodes[0].childNodes[0].innerText;
+  selection["task"] = this.parentElement.parentElement.childNodes[0].childNodes[1].childNodes[0].innerText;
   selection["project"] = content.getActiveView();
   selection["taskElement"] = this.parentElement.parentElement;
 

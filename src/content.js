@@ -15,16 +15,26 @@ const taskTemplate = (task) => {
   const taskContainer = document.createElement("div");
   taskContainer.setAttribute("class", "task");
 
+  const taskLeftSideContainer = document.createElement("div");
+  taskLeftSideContainer.setAttribute("id", "task-left-side-container");
+
+  const taskCompletionCheck = document.createElement("div");
+  taskCompletionCheck.setAttribute("class", "task-completion-false");
+  taskCompletionCheck.setAttribute("id", "task-completion-check");
+  taskLeftSideContainer.appendChild(taskCompletionCheck);
+
   const taskTitleDescriptionContainer = document.createElement("div");
   taskTitleDescriptionContainer.setAttribute("id", "task-title-description");
 
   const taskTitle = document.createElement("div");
   taskTitle.setAttribute("id", "task-title");
+  taskTitle.setAttribute("class", "task-completion-false");
   taskTitle.innerHTML = task.title;
   taskTitleDescriptionContainer.appendChild(taskTitle);
 
   const taskDescription = document.createElement("div");
   taskDescription.setAttribute("id", "task-description");
+  taskDescription.setAttribute("class", "task-completion-false");
   taskDescription.innerHTML = task.description;
   taskTitleDescriptionContainer.appendChild(taskDescription);
 
@@ -33,6 +43,7 @@ const taskTemplate = (task) => {
 
   const taskDueDate = document.createElement("div");
   taskDueDate.setAttribute("id", "task-due-date");
+  taskDueDate.setAttribute("class", "task-completion-false");
   taskDueDate.innerHTML = task.dueDate;
   taskDateOptionsContainer.appendChild(taskDueDate);
 
@@ -76,7 +87,9 @@ const taskTemplate = (task) => {
   `;
   taskDateOptionsContainer.appendChild(taskDelete);
 
-  taskContainer.appendChild(taskTitleDescriptionContainer);
+  // taskContainer.appendChild(taskTitleDescriptionContainer);
+  taskLeftSideContainer.appendChild(taskTitleDescriptionContainer);
+  taskContainer.appendChild(taskLeftSideContainer);
   taskContainer.appendChild(taskDateOptionsContainer);
 
   // contentContainer.appendChild(taskContainer);
