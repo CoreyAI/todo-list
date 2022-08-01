@@ -24,7 +24,7 @@ const project = (name) => {
 }
 
 const task = (title, description, dueDate, priority, project) => {
-  const status = false;
+  let status = false;
   const getCompletionStatus = () => {
     return status;
   }
