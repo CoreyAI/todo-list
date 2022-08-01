@@ -155,7 +155,6 @@ const updateTask = (inputArray, projectName) => {
   taskList[i].priority = inputArray[3];
 
   if (inputArray[4] != projectName) {   // if project was changed
-    console.log("project change");
     const tempTask = taskList.splice(i,1);
     const newProject = getProject(inputArray[4]);
     newProject.setTask(tempTask[0]);
@@ -228,13 +227,10 @@ const modifyTask = (option, task, project, element) => {
   let projectObject = getProject(project);
   activeTaskIndex = projectObject.getTaskIndex(task);
   if (option == "task-edit") {
-    console.log("task-edit");
     ui.addTaskPrompt("edit", project, task);
   } else if (option == "task-delete") {
-    console.log("task-delete");
     projectObject.removeTask(task);
     ui.removeTask(element);
-    console.log(`Project "${projectObject.name} > Tasks: ${projectObject.getTasks()}"`)
   } else {
     alert("error with content.modifyTask, option is: ", option);
   }

@@ -16,7 +16,6 @@ navMenu.forEach(selection => {
 });
 
 function navEvent(e) {
-  console.log("navEvent triggered: ", e);
   switch (this.id) {
     case "nav-inbox":
       //TODO:
@@ -45,7 +44,6 @@ function projectFormScan() {
   const projectFormContainer = document.querySelector("form");
   projectFormContainer.addEventListener("submit", function(e) {
     e.preventDefault();
-    console.log("this has been alerted");
     const projectName = this['project-name'].value;
     db.addProject(projectName);
     ui.navAddProject(projectName);
@@ -70,7 +68,6 @@ function projectListScan() {
 
 function projectListEvent(e) {
   if (e.target.tagName == "DIV") {
-    console.log("div");
     const projectName = e.target.innerText;
     content.showProject(projectName);
     taskScan();
@@ -115,11 +112,12 @@ function taskScan() {
 function taskToggle(e) {
   if (e.target.parentElement.id == "task-edit" || e.target.parentElement.parentElement.id == "task-edit") {
     return;
+  } else if (e.target.parentElement.id == "task-delete" || e.target.parentElement.parentElement.id == "task-delete") {
+    return;
   }
 
   const projectName = content.getActiveView();
   const taskName = this.childNodes[0].childNodes[1].childNodes[0].innerText;
-  // const checkContainer = this.childNodes[0].childNodes[0];
   const taskContainer = this;
 
   content.toggleTaskStatus(projectName, taskName, taskContainer);
@@ -132,7 +130,6 @@ function addTaskScan() {
 }
 
 function addTask(e) {
-  console.log("add task clicked: ", e);
   const projectName = e.target.parentElement.parentElement.childNodes[0].innerText;
   ui.addTaskPrompt("add", projectName);
   taskFormScan();
@@ -143,7 +140,6 @@ function taskFormScan() {
 
   taskContainer.addEventListener("submit", function(e) {
     e.preventDefault;
-    console.log("submit button pressed");
 
     const inputArray = [e.target['task-name'].value, e.target['task-description'].value, e.target['task-due-date'].value, e.target['task-priority'].value, e.target['task-project'].value];
 
@@ -157,24 +153,20 @@ function taskFormScan() {
     const activeProject = content.getActiveView();
 
     if (taskState == "add") {
-      // console.log("index.taskFormScan > taskState = add");
       db.addTaskToProject(inputTask, inputProject);
       content.addTask(inputTask, inputProject);
     } else if (taskState == "edit") {
-      // console.log("index.taskFormScan > taskState = edit");
       content.updateTask(inputArray, activeProject);
     } else {
       console.log("error: taskState = ". taskState);
     }
 
-    console.log("inputTask = ", inputTask);
     ui.removeTaskPrompt();
     taskOptionScan();
     taskScan();
   });
 
   taskContainer.addEventListener("reset", function(e) {
-    console.log("reset button pressed");
     ui.removeTaskPrompt();
   });
 }
@@ -190,8 +182,6 @@ function taskOptionScan() {
 // in their own individual array with project value for better organization/
 // sorting. Can look to fix this in the future with a code refactor.
 function taskOptionSelection(e) {
-  console.log("option has been selected: ", e);
-
   let selection = {option: null, task: null, project: null, taskElement: null};
 
   selection["option"] = this.id
