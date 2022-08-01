@@ -25,17 +25,20 @@ const project = (name) => {
 
 const task = (title, description, dueDate, priority, project) => {
   const status = false;
-  const getStatus = () => {
+  const getCompletionStatus = () => {
     return status;
   }
-  const setStatus = () => {
+  const toggleCompletionStatus = () => {
     if (status == false) {
       status = true;
     } else {
       status = false;
     }
   }
-  return {title, description, dueDate, priority, project, getStatus, setStatus};
+  const getTodayStatus = () => {
+    //TODO
+  }
+  return {title, description, dueDate, priority, project, getCompletionStatus, toggleCompletionStatus};
 }
 
 // Temporary location for storing projects
