@@ -74,15 +74,15 @@ function projectListEvent(e) {
     addTaskScan();
     taskOptionScan();
   } else if (e.target.tagName == "svg") {
-    const element = e.path[1];
+    const element = e.srcElement.parentElement;
     const activeView = content.getActiveView();
     ui.navRemoveProject(element);
-    db.removeProject(e.path[1].children[0].innerText, activeView);
+    db.removeProject(element.innerText, activeView);
   } else if (e.target.tagName == "path") {
-    const element = e.path[2];
+    const element = e.srcElement.parentElement.parentElement;
     const activeView = content.getActiveView();
     ui.navRemoveProject(element)
-    db.removeProject(e.path[2].children[0].innerText, activeView);
+    db.removeProject(element.innerText, activeView);
   } else {
     console.log(e.target.tagName);
   }
